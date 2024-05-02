@@ -34,7 +34,7 @@
   
 
 
-  <div class="mb-3" id="lignes_facture_container">
+  <div class="mb-3" id="all_lignes_facture_container">
 
   </div>
       <button type="button" class="btn btn-outline-primary btn-sm" id="btn_ajout_ligne">Ajouter une ligne</button>
