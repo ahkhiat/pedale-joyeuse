@@ -37,6 +37,22 @@ class Facture extends Model
         return $requete->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function set_facture_add_request()
+    {
+
+        try {
+            $requete = $this->bd->prepare('INSERT INTO facture (id, date, prix_ht, prix_ttc, id_clients, id_personnel)
+            VALUES (NULL, :dt, :pht, :pttc, :idc, :idp)
+                                           ');
+            $requete->execute(array(':dt' => $_POST['date'], ':pht' => $_POST['pht'], ':pttc' => $_POST['pttc'], 
+            ':idc' => $_POST['client'], ':idp' => $_POST['personnel']));
+            
+        } catch (PDOException $e) {
+            die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
+        }
+        return $requete->fetchAll(PDO::FETCH_OBJ);
+    }
+
     
 
     

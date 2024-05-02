@@ -8,7 +8,7 @@
 
 <h2>Ajouter une facture</h2>
 
-<form action="?controller=client&action=facture_add_request" method="POST">
+<form action="?controller=facture&action=facture_add_request" method="POST">
 
   <div class="mb-3">
     <label for="nom" class="form-label">Date</label>
@@ -25,22 +25,29 @@
   </div>
   <div class="mb-3">
     <label for="client" class="form-label">Client</label>
-    <select class="form-select" name="personnel">
+    <select class="form-select" name="client">
         <option selected>Choix du client</option>
         <?php  foreach($clients as $c ): ?>
         <option value="<?=$c->id?>"><?= $c->prenom?> <?php str_repeat('&nbsp;', 1) ?> <?=$c->nom?></option>
         <?php endforeach; ?>
     </select>   </div>
-  <!-- <div class="mb-3">
-    <label for="ligne_facture" class="form-label">Ligne facture </label>
-    <input type="text" class="form-control" id="ligne_facture"  name="ligne_facture" >
-  </div> -->
-
-  <button type="button" class="btn btn-outline-primary btn-sm" id="btn_ajout_ligne">Ajouter une ligne</button>
-  <div class="mb-3" id="lignes_facture_container">
-    
-  </div>
   
+
+
+  <div class="mb-3" id="lignes_facture_container">
+
+  </div>
+      <button type="button" class="btn btn-outline-primary btn-sm" id="btn_ajout_ligne">Ajouter une ligne</button>
+
+  <div class="mb-3">
+    <label for="pht" class="form-label">Total HT </label>
+    <input type="text" class="form-control" id="pht"  name="pht" >
+  </div>
+
+  <div class="mb-3">
+    <label for="pttc" class="form-label">Total TTC </label>
+    <input type="text" class="form-control" id="pttc"  name="pttc" >
+  </div>
   
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

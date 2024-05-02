@@ -34,8 +34,8 @@ class Controller_facture extends Controller
     public function action_facture_add_request()
     {
         $m=Facture::get_model();
-        ['client'=>$m->set_facture_add()];
-        $this->render("client_add");
+        $m->set_facture_add_request();
+        $this->render("all_factures");
     }
     
     
