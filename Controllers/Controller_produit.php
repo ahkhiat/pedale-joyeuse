@@ -23,5 +23,9 @@ class Controller_produit extends Controller
         $m=Produit::get_model();
         $m->get_all_produits_json();
     }
+    public function action_produit_add()
+    {
+        $this->render("produit_add");
+    }
 
 }

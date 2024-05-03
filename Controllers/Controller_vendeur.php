@@ -36,7 +36,7 @@ class Controller_vendeur extends Controller
         $data=['ventes'=>$m->get_ventes_ytd(),
                'nbr_ventes'=>$m->get_ventes_ytd_nombre(),
                 'totaux'=>$m->get_ventes_ytd_total(),
-                'titre'=>'Ventes cumulées depuis le 1er janvier : '];
+                'titre'=>'Ventes cumulées depuis le 1er janvier'];
         $this->render("ventes",$data);
     }
 

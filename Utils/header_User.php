@@ -32,6 +32,7 @@
     <?php    // ------------ Display if user is ADMIN -------------------
       if(isset($_SESSION["roles"]) && $_SESSION["roles"]=="admin")  
       {echo "<a class='nav-link text-danger' id='admin'><span class='btn btn-outline-secondary rounded-pill disabled'>Mode Manager</span></a>";} 
+      else {echo "<a class='nav-link text-danger' id='admin'><span class='btn btn-outline-secondary rounded-pill disabled'>Mode Vendeur</span></a>";} 
     ?>
   </li>
   <li class="nav-item dropdown ">

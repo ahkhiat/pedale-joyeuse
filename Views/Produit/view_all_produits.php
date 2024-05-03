@@ -7,9 +7,15 @@
     <table id='table' class="table w-75 mx-auto">
     <h2 class="text-center">Liste des produits</h2>
 
-    <!-- <div class="align-self-end">
-        <a href="?controller=facture&action=facture_add"><button class="mt-3 btn btn-secondary">Ajouter une facture</button></a>
-    </div> -->
+    <?php
+    if(isset($_SESSION["roles"]) && $_SESSION["roles"]=="admin")  
+      {echo '
+        <div class="align-self-end">
+        <a href="?controller=produit&action=produit_add"><button class="mt-3 btn btn-secondary">Ajouter un produit</button></a>
+        </div>
+        ';} 
+      ?>
+   
 
         <thead>
             <th>Id</th>

@@ -155,7 +155,26 @@ class Facture extends Model
                                            JOIN clients c ON f.id_client = c.id
                                            JOIN user u ON f.id_user = u.id
                                            WHERE u.id = :pid
-                                           AND f.date >= DATE_FORMAT(CURRENT_DATE(), "%Y-%m-01")
+                                           AND f.date >= CONCAT(YEAR(CURRENT_DATE()), "-01-01")
+                                           ORDER BY date DESC
+                                           ');
+            $requete->execute(array(':pid' => $_SESSION['id']));
+            
+        } catch (PDOException $e) {
+            die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
+        }
+        return $requete->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function get_ventes_ytd_total()
+    {
+
+        try {
+            $requete = $this->bd->prepare('SELECT SUM(prix_ht) AS total_ht, 
+                                            SUM(prix_ttc) AS total_ttc 
+                                           FROM facture f
+                                           JOIN user u ON f.id_user = u.id
+                                           WHERE u.id = :pid
+                                           AND f.date >= CONCAT(YEAR(CURRENT_DATE()), "-01-01")
                                            ORDER BY date DESC
                                            ');
             $requete->execute(array(':pid' => $_SESSION['id']));

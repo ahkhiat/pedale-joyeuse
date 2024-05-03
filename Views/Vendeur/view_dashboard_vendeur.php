@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-1">
-                <div class="card-header"><a href="?controller=vendeur&action=ventes_mois">Ventes du mois</a></div>
+                <div class="card-header"><a href="?controller=vendeur&action=ventes_mois">Ventes du mois en cours </a></div>
                 <div class="card-body">
                     <div class="row no-gutters align-items-center ">
                         <div class="col mr-2 ">
@@ -27,7 +27,7 @@
 
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-header">Vente cumulées depuis 1er janvier</div>
+                <div class="card-header"><a href="?controller=vendeur&action=ventes_ytd">Ventes cumulées depuis 1er janvier</a></div>
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -45,6 +45,7 @@
 
     <!-- Row 2 -->
     <div class="row">
+
 
     </div>
 
