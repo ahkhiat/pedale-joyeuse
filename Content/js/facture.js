@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 let selectProduit = document.createElement("select")
                     selectProduit.setAttribute("class", "form-select")
                     selectProduit.setAttribute("id", "select" + compteurLignes)
-                    selectProduit.setAttribute("name", "produit")
+                    selectProduit.setAttribute("name", `ligne[${compteurLignes}][produit]`)
                     selectProduit.classList.add("input-facture-ligne-sel")
 
                 let defaultOption = document.createElement("option");
@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     selectQuantite.setAttribute("type", "number")
                     selectQuantite.setAttribute("placeholder", "Qté")
                     selectQuantite.setAttribute("id", "qte" + compteurLignes)
+                    selectQuantite.setAttribute("name", `ligne[${compteurLignes}][quantite]`)
                     selectQuantite.classList.add("form-control")
                     selectQuantite.classList.add("input-facture-ligne-qte")
 
@@ -82,17 +83,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 let prixHt = document.createElement("input")
                     prixHt.setAttribute("class", "form-control")
                     prixHt.setAttribute("id", "prixHt" + compteurLignes)
-                    prixHt.setAttribute("name", "pht")
+                    prixHt.setAttribute("name", `ligne[${compteurLignes}][pht]`)
                     prixHt.setAttribute("placeholder", "Prix H.T.")
-                    prixHt.classList.add("input-facture-ligne")
+                    prixHt.classList.add("input-facture-ligne-ht")
 
             /* ------------------------------ input prix TTC ----------------------------- */
                 let prixTtc = document.createElement("input")
                     prixTtc.setAttribute("class", "form-control")
                     prixTtc.setAttribute("id", "prixTtc" + compteurLignes)
-                    prixTtc.setAttribute("name", "pttc")
+                    prixTtc.setAttribute("name", `ligne[${compteurLignes}][pttc]`)
                     prixTtc.setAttribute("placeholder", "Prix T.T.C.")
-                    prixTtc.classList.add("input-facture-ligne")
+                    prixTtc.classList.add("input-facture-ligne-ttc")
                 
 
                 ligneFactureContainer.appendChild(labelLigne)    
@@ -105,28 +106,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 compteurLignes++;
 
-                
+                let allLignesFactures = document.querySelectorAll(".ligne-facture-container")
+                allLignesFactures.forEach(ligne => {
+                    let menuSelect = ligne.querySelector(".input-facture-ligne-sel")
+                    let prixHt = ligne.querySelector(".input-facture-ligne-ht")
+                    let prixTtc = ligne.querySelector(".input-facture-ligne-ttc")
+                    let qte = ligne.querySelector(".input-facture-ligne-qte")
+                    
+
+                        menuSelect.addEventListener("change", (event) => {
+                            // console.log(ligne.id + " " + event.target.value)
+
+                            let produitId = event.target.value;
+
+                            produits.forEach(produit => {
+                                if(produitId == produit.id) {
+                                    // console.log(produit.price_ht)
+                                    let total = 0;
+                                    let prixHtValues = [];
+
+                                    qte.addEventListener("input", (qty) => {
+                                        
+                                        let prixHtValue = produit.price_ht * qty.target.value;
+                                        let prixTtcValue = (produit.price_ht * (1 + (produit.taux / 100))) * qty.target.value;
+                                        
+                                        prixHt.value = prixHtValue;
+                                        prixTtc.value = prixTtcValue;
+
+                                        // totalHt.value = parseFloat(prixHtValue);
+                                      
+                                         
+
+                                    })
+                                }
+
+                            })
+                            /* ------------------------- fin de produits.forEach ------------------------ */
+                    
+                        })
+                        /* ----------------------- fin de menuSelect listenner ---------------------- */
+
+                })
+                /* ------------------------ fin de All lignes forEach ----------------------- */
+
+
             })
             /* ------------------ fin de btn ajout ligne eventListenner ----------------- */
         
-            let allMenuSelect = document.querySelectorAll(".input-facture-ligne-sel")
-            let allInputQte = document.querySelectorAll(".input-facture-ligne-qte")
-
-            let allLignesFactures = document.querySelectorAll(".ligne-facture-container")
-                // allLignesFactures.forEach(ligne => {
-                //     let menuSelect = ligne.querySelector(".input-facture-ligne-sel")
-                //         menuSelect.addEventListener("change", (event) => {
-                //             console.log(event.target.value)
-                //         })
-                // })
-                
-                
-
-        })
-    /* ------------------------- fin de getProduits.then() ------------------------ */
             
+        })
+        /* ------------------------- fin de getProduits.then() ------------------------ */
+        let totalHtInput = document.querySelector("#totalht")
+        let totalTtcInput = document.querySelector("#totalttc")
 
-        }
+        let btnUpdate = document.querySelector("#update")
+            btnUpdate.addEventListener("click", () => {
+                let allHt = document.querySelectorAll(".input-facture-ligne-ht")
+                let allTtc = document.querySelectorAll(".input-facture-ligne-ttc")
+                let totalHt = 0;
+                let totalTtc = 0;
+
+                    allHt.forEach(input => {
+                        console.log(input.value)
+                        totalHt += parseFloat(input.value) 
+
+                        })
+                    totalHtInput.value = totalHt.toString();
+
+                    allTtc.forEach(input => {
+                        totalTtc += parseFloat(input.value)
+                    })
+                    totalTtcInput.value = totalTtc.toString()
+
+            })
+
+        
+
+        
+    }
     /* ------------------------ fin de facture container ------------------------ */
 
 })

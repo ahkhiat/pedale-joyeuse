@@ -40,16 +40,17 @@
       <button type="button" class="btn btn-outline-primary btn-sm" id="btn_ajout_ligne">Ajouter une ligne</button>
 
   <div class="mb-3">
-    <label for="pht" class="form-label">Total HT </label>
-    <input type="text" class="form-control" id="pht"  name="pht" >
+    <label for="totalht" class="form-label">Total HT </label>
+    <input type="text" class="form-control" id="totalht"  name="totalht" >
   </div>
 
   <div class="mb-3">
-    <label for="pttc" class="form-label">Total TTC </label>
-    <input type="text" class="form-control" id="pttc"  name="pttc" >
+    <label for="totalttc" class="form-label">Total TTC </label>
+    <input type="text" class="form-control" id="totalttc"  name="totalttc" >
   </div>
   
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="button" class="btn btn-outline-primary" id="update">Mettre à jour le total</button>
+  <button type="submit" class="btn btn-primary">Enregistrer</button>
 </form>
 
 </div>

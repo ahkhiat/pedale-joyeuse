@@ -41,12 +41,16 @@ header .navbar{
 /*                                   Facture                                  */
 /* -------------------------------------------------------------------------- */
 
-.input-facture-ligne{
+.input-facture-ligne, 
+.input-facture-ligne-ht, 
+.input-facture-ligne-ttc{
   width: 100px !important;
 }
+
 .input-facture-ligne-sel{
   width: 150px !important;
 }
+
 .input-facture-ligne-qte{
   width: 70px !important;
 }

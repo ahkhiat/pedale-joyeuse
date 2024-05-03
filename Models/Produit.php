@@ -24,7 +24,8 @@ class Produit extends Model
     {
 
         try {
-            $requete = $this->bd->prepare('SELECT * FROM produits');
+            $requete = $this->bd->prepare('SELECT p.id, p.name, p.reference, p.price_ht, p.stock, p.alerte, t.taux FROM produits p
+                                           JOIN tva t ON p.id_tva = t.id');
             $requete->execute();
             
         } catch (PDOException $e) {
@@ -36,7 +37,9 @@ class Produit extends Model
     {
 
         try {
-            $requete = $this->bd->prepare('SELECT * FROM produits');
+            $requete = $this->bd->prepare('SELECT p.id, p.name, p.reference, p.price_ht, p.stock, p.alerte, t.taux 
+                                           FROM produits p
+                                           JOIN tva t ON p.id_tva = t.id');
             $requete->execute();
 
             $resultats = $requete->fetchAll(PDO::FETCH_ASSOC);

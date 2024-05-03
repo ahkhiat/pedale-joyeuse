@@ -28,6 +28,7 @@ class Facture extends Model
                                            FROM facture f
                                            JOIN clients c ON f.id_clients = c.id
                                            JOIN personnel p ON f.id_personnel = p.id
+                                           ORDER BY date DESC
                                            ');
             $requete->execute();
             
@@ -44,8 +45,21 @@ class Facture extends Model
             $requete = $this->bd->prepare('INSERT INTO facture (id, date, prix_ht, prix_ttc, id_clients, id_personnel)
             VALUES (NULL, :dt, :pht, :pttc, :idc, :idp)
                                            ');
-            $requete->execute(array(':dt' => $_POST['date'], ':pht' => $_POST['pht'], ':pttc' => $_POST['pttc'], 
+            $requete->execute(array(':dt' => $_POST['date'], ':pht' => $_POST['totalht'], ':pttc' => $_POST['totalttc'], 
             ':idc' => $_POST['client'], ':idp' => $_POST['personnel']));
+
+            $facture_id = $this->bd->lastInsertId();
+
+            foreach ($_POST['ligne'] as $ligne) {
+                
+                $requeteLigne = $this->bd->prepare('INSERT INTO ligne_facture (id_facture, id_produit, quantite)
+                                                    VALUES (:id_facture, :id_produit, :quantite)');
+                $requeteLigne->execute(array(
+                    ':id_facture' => $facture_id,
+                    ':id_produit' => $ligne['produit'],
+                    ':quantite' => $ligne['quantite'],
+                ));
+            }
             
         } catch (PDOException $e) {
             die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
