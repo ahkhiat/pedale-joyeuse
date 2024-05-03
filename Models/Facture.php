@@ -24,10 +24,11 @@ class Facture extends Model
     {
 
         try {
-            $requete = $this->bd->prepare('SELECT f.id, date, prix_ht, prix_ttc, c.nom AS client_nom, c.prenom AS client_prenom, p.nom AS personnel_nom
+            $requete = $this->bd->prepare('SELECT f.id, date, prix_ht, prix_ttc, c.nom AS client_nom, c.prenom AS client_prenom, 
+                                           u.nom AS user_nom, u.prenom AS user_prenom
                                            FROM facture f
-                                           JOIN clients c ON f.id_clients = c.id
-                                           JOIN personnel p ON f.id_personnel = p.id
+                                           JOIN clients c ON f.id_client = c.id
+                                           JOIN user u ON f.id_user = u.id
                                            ORDER BY date DESC
                                            ');
             $requete->execute();
@@ -42,11 +43,11 @@ class Facture extends Model
     {
 
         try {
-            $requete = $this->bd->prepare('INSERT INTO facture (id, date, prix_ht, prix_ttc, id_clients, id_personnel)
+            $requete = $this->bd->prepare('INSERT INTO facture (id, date, prix_ht, prix_ttc, id_client, id_user)
             VALUES (NULL, :dt, :pht, :pttc, :idc, :idp)
                                            ');
             $requete->execute(array(':dt' => $_POST['date'], ':pht' => $_POST['totalht'], ':pttc' => $_POST['totalttc'], 
-            ':idc' => $_POST['client'], ':idp' => $_POST['personnel']));
+            ':idc' => $_POST['client'], ':idp' => $_SESSION['id']));
 
             $facture_id = $this->bd->lastInsertId();
 
@@ -67,7 +68,25 @@ class Facture extends Model
         return $requete->fetchAll(PDO::FETCH_OBJ);
     }
 
-    
+    public function get_ventes_mois()
+    {
+
+        try {
+            $requete = $this->bd->prepare('SELECT f.id, date, prix_ht, prix_ttc, c.nom AS client_nom, c.prenom AS client_prenom,
+                                           u.nom AS user_nom, u.prenom AS user_prenom
+                                           FROM facture f
+                                           JOIN clients c ON f.id_client = c.id
+                                           JOIN user u ON f.id_user = u.id
+                                           WHERE u.id = :pid
+                                           ORDER BY date DESC
+                                           ');
+            $requete->execute(array(':pid' => $_SESSION['id']));
+            
+        } catch (PDOException $e) {
+            die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
+        }
+        return $requete->fetchAll(PDO::FETCH_OBJ);
+    }
 
     
 

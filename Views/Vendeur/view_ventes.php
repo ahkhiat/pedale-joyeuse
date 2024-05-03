@@ -5,11 +5,11 @@
 <div class="table-responsive">
     
     <table id='table' class="table w-75 mx-auto">
-    <h2 class="text-center">Liste des factures</h2>
+    <h2 class="text-center">
+        <?= $titre ?>
+    </h2>
 
-    <div class="align-self-end">
-        <a href="?controller=facture&action=facture_add"><button class="mt-3 btn btn-secondary">Ajouter une facture</button></a>
-    </div>
+    
 
         <thead>
             <th>Id</th>
@@ -20,7 +20,7 @@
             <th>Personnel</th>
             
         </thead>
-        <?php  foreach($factures as $u ): ?>
+        <?php  foreach($ventes as $u ): ?>
         <tr>
             <td><?= $u->id ?></td>
             <td><?=$u->date?></td>

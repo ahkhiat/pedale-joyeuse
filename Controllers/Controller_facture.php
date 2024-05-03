@@ -22,11 +22,11 @@ class Controller_facture extends Controller
     public function action_facture_add()
     {
         $mc=Client::get_model();
-        $mp=Personnel::get_model();
+        $mp=User::get_model();
         $mpr=Produit::get_model();
 
         $data=['clients'=>$mc->get_all_clients(),
-                'personnels'=>$mp->get_all_personnels(),
+                'users'=>$mp->get_all_users(),
                 'produits'=> $mpr->get_all_produits_json()];
         $this->render("facture_add", $data);
     }

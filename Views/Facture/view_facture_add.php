@@ -18,7 +18,7 @@
     <label for="personnel" class="form-label">Personnel</label>
     <select class="form-select" name="personnel">
         <option selected>Choix du personnel</option>
-        <?php  foreach($personnels as $p ): ?>
+        <?php  foreach($users as $p ): ?>
         <option value="<?=$p->id?>"> <?= $p->prenom?> <?php str_repeat('&nbsp;', 1) ?><?=$p->nom?></option>
         <?php endforeach; ?>
     </select>  
