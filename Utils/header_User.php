@@ -10,7 +10,7 @@
       <a href="?controller=produit&action=all_produits" class="nav-link ">Produits</a>
     </li>
     <li class="nav-item">
-      <a href="?controller=vendeur&action=ventes_mois" class="nav-link ">Ventes</a>
+      <a href="?controller=vendeur&action=dashboard" class="nav-link ">Ventes</a>
     </li>
 
   <?php // ---------------------Display dashboard if user is ADMIN --------------------

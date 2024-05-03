@@ -1,25 +1,31 @@
-*{
-    box-sizing: border-box;
+*
+{
+  box-sizing: border-box;
 }
 
 body {
     /* background-color: skyblue; */
-    background-size: 150%; 
+    /* background-size: 150%;  */
 }
 
 a {
   text-decoration: none !important;
-  color: black !important;
+  color: black ;
 }
 
 .logo{
   
   /* width: 88px; */
-  height: 3.5rem;
+  height: 3rem;
   /* border-radius: 50%; */
   margin-left: 10px;
-
 }
+
+
+
+
+
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  home page                                 */
@@ -113,11 +119,8 @@ header .navbar{
    
 } 
 
-h1{
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-color: rgba(127, 255, 212, 0.564);
-    text-align: center;
-}
+
+
 
 .title {
   text-align: center;
