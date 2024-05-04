@@ -53,6 +53,23 @@ class Produit extends Model
         }
         return $produits_json;
     }
+    public function get_produit_show()
+    {
+
+        try {
+            $requete = $this->bd->prepare('SELECT p.id, p.name, p.reference, p.price_ht, p.stock, p.alerte, t.taux,
+                                            ROUND(p.price_ht * (1 + t.taux / 100), 2) AS price_ttc
+                                           FROM produits p
+                                           JOIN tva t ON p.id_tva = t.id
+                                           WHERE p.id = :pid
+                                           ');
+            $requete->execute(array(':pid'=>$_POST['produit_id']));
+            
+        } catch (PDOException $e) {
+            die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
+        }
+        return $requete->fetchAll(PDO::FETCH_OBJ);
+    }
     public function get_tva()
     {
 
@@ -71,6 +88,28 @@ class Produit extends Model
             $requete = $this->bd->prepare('INSERT INTO produits (id, name, reference, price_ht, stock, alerte, id_tva) 
             VALUES(NULL, :nme, :ref, :pht, :sto, :alert, :itva)');
             $requete->execute(array(
+                ':nme' => $_POST['name'],
+                ':ref' => $_POST['reference'],
+                ':pht' => $_POST['price_ht'],
+                ':sto' => $_POST['stock'],
+                ':alert' => $_POST['alerte'],
+                ':itva' => $_POST['id_tva']
+            ));
+            
+        } catch (PDOException $e) {
+            die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
+        }
+        return $requete->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function set_produit_update_request()
+    {
+        try {
+            $requete = $this->bd->prepare('UPDATE produits SET name = :nme, reference = :ref, price_ht = :pht, stock = :sto, 
+                                           alerte = :alert, id_tva = :itva
+                                           WHERE id = :pid
+                                            ');
+            $requete->execute(array(
+                ':pid' => $_POST['id'],
                 ':nme' => $_POST['name'],
                 ':ref' => $_POST['reference'],
                 ':pht' => $_POST['price_ht'],

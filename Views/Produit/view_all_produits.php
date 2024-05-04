@@ -7,6 +7,18 @@
     <table id='table' class="table w-75 mx-auto">
     <h2 class="text-center">Liste des produits</h2>
 
+    <!-- Bandeau d'alerte si alerte stock atteinte -->
+    <?php  foreach($produits as $u ): ?>
+      <?php echo ($u->stock <= $u->alerte) ? '
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Attention !</strong> Alerte stock sur produit
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      ' : '' ?>
+    <?php endforeach; ?>
+
+    
+
     <?php
     if(isset($_SESSION["roles"]) && $_SESSION["roles"]=="admin")  
       {echo '
@@ -15,7 +27,8 @@
         </div>
         ';} 
       ?>
-   
+   <!-- ---------------------------- bandeau d'alerte ---------------------------- -->
+    
 
         <thead>
             <th>Id</th>
@@ -26,7 +39,7 @@
             <th>Taux TVA</th>
             <th>Stock</th>
             <th>Alerte</th>
-            
+            <th>Action</th>
         </thead>
         <?php  foreach($produits as $u ): ?>
         <tr>
@@ -38,6 +51,18 @@
             <td><?=$u->taux?></td>
             <td style="<?php echo ($u->stock <= $u->alerte) ? 'color: red; font-weight: bold;' : '' ?>"><?=$u->stock?></td>
             <td><?=$u->alerte?> </td>
+            <td>
+              <div class="d-flex flex-row">
+                  <form action="?controller=produit&action=produit_update" method="POST">
+                      <input type="hidden" name="produit_id" class="form-control" id="hide1" value=<?= $u->id ?> >
+                      <button type="submit" class="btn btn-primary btn-sm me-3"><i class="fa-regular fa-pen-to-square"></i></button>
+                  </form>
+                  <form action="?controller=produit&action=produit_delete" method="POST" id="theme_delete_form">
+                      <input type="hidden" name="produit_id" class="form-control" id="hide2" value=<?= $u->id  ?> >
+                      <button type="submit" class="btn btn-danger btn-sm delete-button"><i class="fa-regular fa-trash-can"></i></button>
+                  </form>
+              </div>
+              </td>
         </tr>
         <?php endforeach; ?>
     </table>

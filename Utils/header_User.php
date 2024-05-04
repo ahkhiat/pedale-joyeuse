@@ -19,7 +19,7 @@
         echo
           '
                 <li class="nav-item">
-                  <a href="?controller=admin&action=dashboard" class="nav-link text-light">Dashboard</a>
+                  <a href="?controller=admin&action=dashboard_admin" class="nav-link text-light">Dashboard</a>
                 </li>
                     ';
       }

@@ -8,16 +8,16 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         <li class="nav-item me-4">
-        <a class="nav-link" href="?controller=game&action=all_games">Parties</a>
+        <a class="nav-link" href="?controller=game&action=all_games">Ventes</a>
         </li>
         <li class="nav-item me-4">
-          <a class="nav-link" href="?controller=question&action=all_questions">Questions</a>
+          <a class="nav-link" href="?controller=question&action=all_questions">xxx</a>
         </li>
         <li class="nav-item me-4">
-          <a class="nav-link" href="?controller=theme&action=all_themes">Thèmes</a>
+          <a class="nav-link" href="?controller=theme&action=all_themes">xxx</a>
         </li>
         <li class="nav-item me-4">
-          <a class="nav-link" href="?controller=user&action=all_users">Utilisateurs</a>
+          <a class="nav-link" href="?controller=user&action=all_users">xxx</a>
         </li>
         
       </ul>

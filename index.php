@@ -9,6 +9,7 @@ require_once('Models/Personnel.php');
 require_once('Models/Produit.php');
 require_once('Models/Security.php');
 require_once('Models/User.php');
+require_once('Models/Admin.php');
 
 /* ------------------------------- Controllers ------------------------------ */
 require_once('App/Controller.php');
@@ -19,7 +20,7 @@ require_once('Utils/header.php');
 
 
 
-$controllers=['home', 'client','config', 'facture', 'produit', 'security', 'vendeur', 'user'];
+$controllers=['home', 'client','config', 'facture', 'produit', 'security', 'vendeur', 'user', 'admin'];
 $controller_default='home';
 
 if(isset($_GET['controller']) and in_array($_GET['controller'],$controllers))

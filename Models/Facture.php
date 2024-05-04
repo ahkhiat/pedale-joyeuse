@@ -47,7 +47,7 @@ class Facture extends Model
             VALUES (NULL, :dt, :pht, :pttc, :idc, :idp)
                                            ');
             $requete->execute(array(':dt' => $_POST['date'], ':pht' => $_POST['totalht'], ':pttc' => $_POST['totalttc'], 
-            ':idc' => $_POST['client'], ':idp' => $_SESSION['id']));
+            ':idc' => $_POST['client'], ':idp' => $_POST['user_id']));
 
             $facture_id = $this->bd->lastInsertId();
 
@@ -68,7 +68,7 @@ class Facture extends Model
         return $requete->fetchAll(PDO::FETCH_OBJ);
     }
 
-    /* ----------------------------- Ventes du mois ----------------------------- */
+    /* ----------------------------- Ventes du mois par VENDEUR ----------------------------- */
     public function get_ventes_mois()
     {
 
@@ -126,7 +126,7 @@ class Facture extends Model
             die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
         }
     }
-    /* ------------------------------- Ventes YTD ------------------------------- */
+    /* ------------------------------- Ventes YTD par VENDEUR------------------------------- */
     public function get_ventes_ytd_nombre()
     {
 

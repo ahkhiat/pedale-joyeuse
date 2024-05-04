@@ -4,6 +4,7 @@
 // var_dump($clients);
 // var_dump($personnels);
 // var_dump($produits);
+var_dump($_SESSION)
 ?>
 
 <h2>Ajouter une facture</h2>
@@ -16,12 +17,23 @@
   </div>
   <div class="mb-3">
     <label for="personnel" class="form-label">Personnel</label>
-    <select class="form-select" name="personnel">
+    <!-- <select class="form-select" name="user_id">
         <option selected>Choix du personnel</option>
         <?php  foreach($users as $p ): ?>
         <option value="<?=$p->id?>"> <?= $p->prenom?> <?php str_repeat('&nbsp;', 1) ?><?=$p->nom?></option>
         <?php endforeach; ?>
-    </select>  
+    </select>   -->
+    <select class="form-select" name="user_id">
+      <option disabled>Choix du personnel</option>
+        <?php foreach($users as $p): ?>
+            <?php if($_SESSION['roles'] == 'vendeur'): ?>
+                <option value="<?= $_SESSION['id'] ?>" selected><?= $p->prenom ?> <?= $p->nom ?></option>
+            <?php elseif($_SESSION['roles'] == 'admin'): ?>
+                <option value="<?= $p->id ?>"> <?= $p->prenom?> <?php str_repeat('&nbsp;', 1) ?><?=$p->nom?>
+                </option>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </select>
   </div>
   <div class="mb-3">
     <label for="client" class="form-label">Client</label>
