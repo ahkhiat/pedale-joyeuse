@@ -25,7 +25,15 @@ class Controller_produit extends Controller
     }
     public function action_produit_add()
     {
-        $this->render("produit_add");
+        $m=Produit::get_model();
+        $data=['tva'=>$m->get_tva()];
+        $this->render("produit_add", $data);
+    }
+    public function action_produit_add_request()
+    {
+        $m=Produit::get_model();
+        $data=['tva'=>$m->set_produit_add_request()];
+        $this->render("produit_add", $data);
     }
 
 }

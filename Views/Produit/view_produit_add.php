@@ -1,3 +1,6 @@
+<?php
+var_dump($tva);
+?>
 <div class="mx-auto w-50">
 
 <h2>Ajouter un produit</h2>
@@ -25,10 +28,15 @@
     <label for="alerte" class="form-label">Alerte stock</label>
     <input type="text" class="form-control" id="alerte"  name="alerte" >
   </div>
+  
   <div class="mb-3">
     <label for="id_tva" class="form-label">TVA</label>
-    <input type="text" class="form-control" id="id_tva"  name="id_tva" >
-  </div>
+    <select class="form-select" name="id_tva">
+        <option selected>Choix du taux</option>
+        <?php  foreach($tva as $t ): ?>
+        <option value="<?=$t->id?>"><?= $t->taux?></option>
+        <?php endforeach; ?>
+    </select>   </div>
   
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
