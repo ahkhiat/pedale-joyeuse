@@ -43,7 +43,10 @@ class Facture extends Model
 
         try {
             $requete = $this->bd->prepare('SELECT f.id, date, prix_ht, prix_ttc, c.nom AS client_nom, c.prenom AS client_prenom, 
-                                           u.nom AS user_nom, u.prenom AS user_prenom, c.adresse1, c.adresse2, c.code_postal, c.ville, c.email, c.telephone
+                                           u.nom AS user_nom, u.prenom AS user_prenom, 
+                                           c.adresse1, c.adresse2, c.code_postal, 
+                                           c.ville, c.email, c.telephone,
+                                           SUM(prix_ttc - prix_ht) AS total_tva
                                            FROM facture f
                                            JOIN clients c ON f.id_client = c.id
                                            JOIN user u ON f.id_user = u.id
@@ -61,7 +64,14 @@ class Facture extends Model
     {
 
         try {
-            $requete = $this->bd->prepare('SELECT * FROM ligne_facture WHERE id_facture = :fid');
+            $requete = $this->bd->prepare('SELECT l.quantite, l.id_produit, l.id_facture,
+                                            p.name, p.reference, p.price_ht,
+                                            SUM(l.quantite * p.price_ht) AS total_ht
+                                           FROM ligne_facture l 
+                                           JOIN produits p
+                                           ON l.id_produit = p.id
+                                           WHERE id_facture = :fid
+                                           GROUP BY l.quantite, l.id_produit, l.id_facture, p.name, p.reference, p.price_ht;');
 
             $requete->execute(array(':fid'=>$_POST['fid']));
             
