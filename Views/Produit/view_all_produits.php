@@ -11,7 +11,7 @@
     <?php  foreach($produits as $u ): ?>
       <?php echo ($u->stock <= $u->alerte) ? '
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Attention !</strong> Alerte stock sur produit
+          <strong>Attention !</strong> Alerte stock sur le produit <em>'.$u->name.'</em>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       ' : '' ?>

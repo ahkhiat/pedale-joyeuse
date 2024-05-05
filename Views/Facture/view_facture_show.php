@@ -30,13 +30,13 @@
         <div class="row mt-4">
             <div class="col-12 col-lg-12">
                 <div class="row">
-                    <div class="col-8 border">
+                    <div class="col-8 ">
                         <div class=" text-150">
 							<img src="./Content/img/pedalejoyeuse.png" alt="" class="src" width="300">
                         </div>
 						
                     </div>
-					<div class="col-4 border text-sm text-grey-m2 align-middle d-flex flex-column justify-content-end align-items-end">
+					<div class="col-4  text-sm text-grey-m2 align-middle d-flex flex-column justify-content-end align-items-end">
 						<div>18 rue de la République</div>
 						<div>13002 Marseille</div>
 						<div><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> 04912345678 </div>
