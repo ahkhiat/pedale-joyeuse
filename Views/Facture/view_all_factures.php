@@ -18,6 +18,7 @@
             <th>Prix TTC</th>
             <th>Client</th>
             <th>Personnel</th>
+            <th>Action</th>
             
         </thead>
         <?php  foreach($factures as $u ): ?>
@@ -28,6 +29,14 @@
             <td><?=$u->prix_ttc?></td>
             <td><?=$u->client_prenom?> <?=$u->client_nom?></td>
             <td><?=$u->user_prenom?> <?=$u->user_nom?></td>
+            <td>
+                <div class="d-flex flex-row">
+                    <form action="?controller=facture&action=facture_show" method="POST">
+                        <input type="hidden" name="fid" class="form-control" id="hide" value=<?= $u->id ?>>
+                        <button type="submit" class="btn btn-primary btn-sm me-3"><i class="fa-regular fa-pen-to-square"></i></button>
+                    </form>
+                </div>
+            </td>
         </tr>
         <?php endforeach; ?>
     </table>

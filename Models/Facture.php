@@ -38,6 +38,38 @@ class Facture extends Model
         }
         return $requete->fetchAll(PDO::FETCH_OBJ);
     }
+    public function get_facture_show()
+    {
+
+        try {
+            $requete = $this->bd->prepare('SELECT f.id, date, prix_ht, prix_ttc, c.nom AS client_nom, c.prenom AS client_prenom, 
+                                           u.nom AS user_nom, u.prenom AS user_prenom, c.adresse1, c.adresse2, c.code_postal, c.ville, c.email, c.telephone
+                                           FROM facture f
+                                           JOIN clients c ON f.id_client = c.id
+                                           JOIN user u ON f.id_user = u.id
+                                           WHERE f.id = :fid
+                                           ');
+            
+            $requete->execute(array(':fid'=>$_POST['fid']));
+            
+        } catch (PDOException $e) {
+            die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
+        }
+        return $requete->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function get_lignes_facture_show()
+    {
+
+        try {
+            $requete = $this->bd->prepare('SELECT * FROM ligne_facture WHERE id_facture = :fid');
+
+            $requete->execute(array(':fid'=>$_POST['fid']));
+            
+        } catch (PDOException $e) {
+            die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage() . '</p>');
+        }
+        return $requete->fetchAll(PDO::FETCH_OBJ);
+    }
 
     public function set_facture_add_request()
     {

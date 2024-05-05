@@ -26,6 +26,10 @@
   ?>
 </ul>
 
+<ul class="navbar-nav me-auto">
+  <a href="?controller=facture&action=facture_add"><button class="btn btn-success">Ajouter une facture</button></a>
+</ul>
+
 <!--------------------------- User badge and dropdown menu ------------------------>
 <ul class="navbar-nav me-2 mb-2 mb-lg-0 align-items-center">
   <li class="nav-item">

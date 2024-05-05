@@ -18,6 +18,13 @@ class Controller_facture extends Controller
         $data=['factures'=>$m->get_all_factures()];
         $this->render("all_factures",$data);
     }
+    public function action_facture_show()
+    {
+        $m=Facture::get_model();
+        $data=['facture'=>$m->get_facture_show(),
+                'lignes'=>$m->get_lignes_facture_show()];
+        $this->render("facture_show",$data);
+    }
     
     public function action_facture_add()
     {

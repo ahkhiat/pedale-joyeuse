@@ -4,7 +4,7 @@
 // var_dump($clients);
 // var_dump($personnels);
 // var_dump($produits);
-var_dump($_SESSION)
+// var_dump($_SESSION)
 ?>
 
 <h2>Ajouter une facture</h2>
@@ -23,17 +23,24 @@ var_dump($_SESSION)
         <option value="<?=$p->id?>"> <?= $p->prenom?> <?php str_repeat('&nbsp;', 1) ?><?=$p->nom?></option>
         <?php endforeach; ?>
     </select>   -->
-    <select class="form-select" name="user_id">
-      <option disabled>Choix du personnel</option>
-        <?php foreach($users as $p): ?>
-            <?php if($_SESSION['roles'] == 'vendeur'): ?>
-                <option value="<?= $_SESSION['id'] ?>" selected><?= $p->prenom ?> <?= $p->nom ?></option>
-            <?php elseif($_SESSION['roles'] == 'admin'): ?>
-                <option value="<?= $p->id ?>"> <?= $p->prenom?> <?php str_repeat('&nbsp;', 1) ?><?=$p->nom?>
-                </option>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </select>
+
+    <?php if($_SESSION['roles'] == 'vendeur'){
+      echo '
+      <input type="text" class="form-control" id="user_id"  name="user_id" value="'.$_SESSION["prenom"].$_SESSION["nom"].'">
+      <input type="hidden" class="form-control" id="user_id"  name="user_id" value="'.$_SESSION["id"].'">
+      ';} elseif($_SESSION['roles'] == 'admin'){
+        echo '
+          <select class="form-select" name="user_id">
+            <option disabled>Choix du personnel</option>';
+            foreach($users as $p) {
+              echo '
+                <option value="'. $p->id .'"> '. $p->prenom . str_repeat('&nbsp;', 1). $p->nom .'</option>
+              ';
+            }
+            echo '</select>';
+        }
+      ?>
+
   </div>
   <div class="mb-3">
     <label for="client" class="form-label">Client</label>
