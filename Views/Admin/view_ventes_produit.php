@@ -1,7 +1,7 @@
 <?php
 // include('./Utils/header_admin.php');
 // var_dump($ventes);
-var_dump($produits);
+// var_dump($produits);
 
 include('./Utils/header_admin.php')
 ?>

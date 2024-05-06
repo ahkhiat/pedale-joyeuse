@@ -1,6 +1,8 @@
 <?php
 // include('./Utils/header_admin.php');
 // var_dump($factures);
+include('./Utils/header_admin.php')
+
 ?>
 <div class="table-responsive">
     
