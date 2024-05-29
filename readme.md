@@ -52,4 +52,7 @@ Ajout d'une fiche client avec toutes les coordonnées necéssaires.
 Si l'on est vendeur, l'input "personnel" est figé sur le nom du vendeur qui est connecté.
 Si l'on est manager, c'est un select qui apparait, de façon à pouvoir choisir n'importe quel vendeur.
 
+Les lignes de factures sont ajoutées de façon dynamique grace à Js.
+La facture sera enregistrée en table "facture" et chaque ligne de facture sera enregistrée dans la table "ligne facture"
+
 
