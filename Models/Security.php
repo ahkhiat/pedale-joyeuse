@@ -21,74 +21,59 @@ class Security extends Model
     protected function __construct() {
         parent::__construct(); 
     }
-/* ---------------------------- ancienne version ---------------------------- */
 
-
-
- 
-/* ----------------------- version Nadia 15 avril 2024 ---------------------- */
 public function get_login()
-    { 
-        try {
-            $email = validData($_POST['email']);
-            $requete = $this->bd->prepare('SELECT * FROM user WHERE email = :email');
-            $requete->execute(array(':email' => $email));
-
-            
-            if($requete->rowCount() > 0) {
-                $user = $requete->fetch(PDO::FETCH_OBJ);
-                $password_hash = $user->pswd; // Récupérer le hachage du mot de passe depuis la base de données
-                $password = $_POST['password']; // Récupérer le mot de passe entré par l'utilisateur   
-                if (password_verify($password, $password_hash)) {
-                    // Mot de passe correct, retourner l'utilisateur
-                    return $user;
-                } else {
-                    // Mot de passe incorrect
-                    echo "<script>alert('Mot de passe incorrect !');</script>";
-                    return false;
-                }
+{ 
+    try { // email is formatted with validData (trim, stripslashes & htmlspecialchars)
+        $email = validData($_POST['email']);
+        // select the email if exists
+        $requete = $this->bd->prepare('SELECT * FROM user WHERE email = :email');
+        $requete->execute(array(':email' => $email));
+        // if the email exists
+        if($requete->rowCount() > 0) {
+            $user = $requete->fetch(PDO::FETCH_OBJ); // we store the result of SELECT in $user
+            $password_hash = $user->pswd; // hashed password is stored in $password_hash
+            $password = $_POST['password']; // unhashed password   
+            if (password_verify($password, $password_hash)) {
+                // php can compare hashed & unhashed pswd
+                return $user;
             } else {
-                // Utilisateur non trouvé
-                echo "<script>alert('Adresse email non enregistrée. Veuillez vous inscrire !');</script>";
+                // passwords don't match, so the pswd entered is incorrect
+                echo "<script>alert('Mot de passe incorrect !');</script>";
                 return false;
             }
-        } catch (PDOException $e) {
-            // Gestion des erreurs PDO
-            die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage());
-        } 
-        
-    }
-
-
-//....................user registration....................
-
-
-/* ------------------ Nouvelle version Nadia 15 avril 2024 ------------------ */
+        } else {
+            // if the email doesn't exists
+            echo "<script>alert('Adresse email non enregistrée. Veuillez vous inscrire !');</script>";
+            return false;
+        }
+    } catch (PDOException $e) {
+        // PDO errors management
+        die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage());
+    } 
+}
 
 public function get_user_registration_valid()
-{   
+{   // data is formatted with validData (trim, stripslashes & htmlspecialchars )
     $email = validData($_POST['email']);
     $password = validData(password_hash($_POST['password'], PASSWORD_DEFAULT));
     $nom = validData($_POST['nom']);
     $prenom = validData($_POST['prenom']);
-    
-     
     try {
-        // Vérifier si l'email existe déjà dans la base de données
+        // Check if email already exists in DB
         $requete_verification = $this->bd->prepare('SELECT * FROM user WHERE email = :email');
         $requete_verification->execute(array(':email' => $email));
         
         if ($requete_verification->rowCount() > 0) {
-            // L'email existe déjà, afficher un message d'erreur
+            // email already exists
         echo "<script>alert('Cet email est déjà utilisé. Veuillez choisir un autre email.');</script>";
-            return null; // Arrêter le processus d'inscription
+            return null; // Stop the process
         } else {
-            // L'email n'existe pas, il faut s'inscription
-            //'user' is the default role
+            // Email doesn't exists, we can create a user
+            //'vendeur' is the default role
             $role = "vendeur";
             $requete_insertion = $this->bd->prepare('INSERT INTO user (id, email, roles, pswd, prenom, nom) 
                 VALUES(NULL, :e, :rl, :pswd, :prenom, :nom)');
-            
             $requete_insertion->execute(array(
                 ':e' => $email,
                 ':rl' => $role,
@@ -96,15 +81,14 @@ public function get_user_registration_valid()
                 ':nom' => $nom,
                 ':prenom' => $prenom,
                 ));
-
             return $requete_insertion->fetchAll(PDO::FETCH_OBJ);
-
-}
+        }
     } catch (PDOException $e) {
-        // Gestion des erreurs PDO
+        // PDO errors management
         die('Erreur [' . $e->getCode() . '] : ' . $e->getMessage());
     }  
-
 }
+
+
 
 }
